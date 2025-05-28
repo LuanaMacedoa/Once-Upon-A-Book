@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Once Upon a Book - Sua Livraria Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-book"></i>
+                <h1>Once Upon a Book</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#books">Livros</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#register">Cadastro</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Login
+                </button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Carrinho de Compras</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Seu carrinho está vazio</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: R$ <span id="cartTotal">0,00</span></strong>
+            </div>
+            <button class="checkout-btn">Finalizar Compra</button>
+        </div>
+    </div>    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Bem-vindo à Once Upon a Book</h1>
+            <p>Descubra mundos incríveis através da leitura</p>
+            <a href="#books" class="btn-primary">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <!-- Featured Books Section -->
+    <section id="books" class="books-section">
+        <div class="container">
+            <h2>Nossos Livros</h2>
+            <div class="books-filter">
+                <button class="filter-btn active" data-category="all">Todos</button>
+                <button class="filter-btn" data-category="romance">Romance</button>
+                <button class="filter-btn" data-category="fantasia">Fantasia</button>
+                <button class="filter-btn" data-category="misterio">Mistério</button>
+                <button class="filter-btn" data-category="biografia">Biografia</button>
+            </div>
+            <div class="books-grid" id="booksGrid">
+                <!-- Espaço reservado para adicionar livros -->
+                <div class="book-placeholder">
+                    <div class="placeholder-content">
+                        <i class="fas fa-plus"></i>
+                        <h3>Adicione seus livros aqui</h3>
+                        <p>Este espaço está reservado para você adicionar seus livros favoritos</p>
+                    </div>
+                </div>
+                <div class="book-placeholder">
+                    <div class="placeholder-content">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Catálogo em construção</h3>
+                        <p>Em breve teremos uma vasta coleção de livros</p>
+                    </div>
+                </div>
+                <div class="book-placeholder">
+                    <div class="placeholder-content">
+                        <i class="fas fa-heart"></i>
+                        <h3>Seus favoritos</h3>
+                        <p>Espaço para os livros mais queridos pelos clientes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Sobre a Once Upon a Book</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Somos uma livraria online apaixonada por conectar leitores aos melhores livros. Nossa missão é tornar a leitura acessível e prazerosa para todos.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Entrega rápida e segura</li>
+                        <li><i class="fas fa-check"></i> Catálogo diversificado</li>
+                        <li><i class="fas fa-check"></i> Preços competitivos</li>
+                        <li><i class="fas fa-check"></i> Atendimento personalizado</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="register-section">
+        <div class="container">
+            <h2>Cadastre-se</h2>
+            <div class="register-content">
+                <div class="register-benefits">
+                    <h3>Vantagens de se cadastrar:</h3>
+                    <div class="benefit-item">
+                        <i class="fas fa-percentage"></i>
+                        <div>
+                            <h4>Descontos Exclusivos</h4>
+                            <p>Até 20% de desconto em livros selecionados</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-truck"></i>
+                        <div>
+                            <h4>Frete Grátis</h4>
+                            <p>Frete grátis em compras acima de R$ 80,00</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <h4>Programa de Pontos</h4>
+                            <p>Acumule pontos e troque por livros</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-bell"></i>
+                        <div>
+                            <h4>Notificações</h4>
+                            <p>Seja o primeiro a saber sobre lançamentos</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="register-form">
+                    <h3>Criar Conta</h3>
+                    <div class="form-row">
+                        <input type="text" placeholder="Nome completo" required>
+                        <input type="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="password" placeholder="Senha" required>
+                        <input type="password" placeholder="Confirmar senha" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="tel" placeholder="Telefone" required>
+                        <input type="date" placeholder="Data de nascimento" required>
+                    </div>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" required>
+                            <span class="checkmark"></span>
+                            Aceito os <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>
+                        </label>
+                        <label>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Desejo receber ofertas e novidades por e-mail
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary">Criar Conta</button>
+                    <p class="login-link">Já tem uma conta? <a href="#">Faça login</a></p>
+                </form>
+            </div>
+        </div>
+    </section>    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Entre em Contato</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Endereço</h4>
+                            <p>Rua dos Livros, 123 - Centro, São Paulo - SP</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>(11) 3456-7890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contato@onceuponabook.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Horário de Funcionamento</h4>
+                            <p>Segunda a Sexta: 9h às 18h<br>Sábado: 9h às 15h</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <h3>Envie sua Mensagem</h3>
+                    <input type="text" placeholder="Seu Nome" required>
+                    <input type="email" placeholder="Seu Email" required>
+                    <select required>
+                        <option value="">Assunto</option>
+                        <option value="duvida">Dúvida sobre produto</option>
+                        <option value="pedido">Status do pedido</option>
+                        <option value="troca">Troca/Devolução</option>
+                        <option value="sugestao">Sugestão</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                    <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-book"></i> Once Upon a Book</h3>
+                    <p>Sua livraria online de confiança. Conectando leitores aos melhores livros desde 2019</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#">Romance</a></li>
+                        <li><a href="#">Fantasia</a></li>
+                        <li><a href="#">Mistério</a></li>
+                        <li><a href="#">Biografia</a></li>
+                        <li><a href="#">Autoajuda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Atendimento</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                        <li><a href="#">Entrega</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Receba novidades e ofertas especiais</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fas fa-barcode"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Once Upon a Book. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carrinho de compras
+        let cart = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('active');
+        }
+
+        function addToCart(book) {
+            cart.push(book);
+            cartCount++;
+            cartTotal += book.price;
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.querySelector('.cart-count').textContent = cartCount;
+            document.getElementById('cartTotal').textContent = cartTotal.toFixed(2).replace('.', ',');
+            
+            const cartItems = document.getElementById('cartItems');
+            if (cartCount === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Seu carrinho está vazio</p>
+                    </div>
+                `;
+            } else {
+                // Atualizar itens do carrinho
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="item-details">
+                            <h4>${item.title}</h4>
+                            <p>R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Filter books
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // Aqui você pode implementar a lógica de filtro quando adicionar os livros
+            });
+        });
+
+        // Form validation
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Formulário enviado com sucesso!');
+            });
+        });
+    </script>
+</body>
+</html>
