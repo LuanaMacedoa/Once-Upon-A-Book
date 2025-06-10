@@ -4,393 +4,280 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Once Upon a Book - Sua Livraria Online</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+    </style>
 </head>
-<body>
-    <!-- Header/Navigation -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-brand">
-                <i class="fas fa-book"></i>
-                <h1>Once Upon a Book</h1>
+<body class="bg-gradient-to-br from-[#f7f6f4] to-[#ede3e5] flex flex-col items-center justify-center font-poppins">
+    
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-sm shadow-lg fixed top-0 left-0 right-0 z-50">
+        <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-book text-[#cc9fa4] text-2xl"></i>
+                <h1 class="text-[#8a7462] text-2xl font-bold font-playfair">Once Upon a Book</h1>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Início</a></li>
-                <li><a href="#books">Livros</a></li>
-                <li><a href="#about">Sobre</a></li>
-                <li><a href="#register">Cadastro</a></li>
-                <li><a href="#contact">Contato</a></li>
+            
+            <!-- Menu Desktop -->            <ul class="hidden md:flex gap-8">
+                <li><a href="#home" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Início</a></li>
+                <li><a href="#books" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Livros</a></li>
+                <li><a href="#about" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Sobre</a></li>
+                <li><a href="#register" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Cadastro</a></li>
+                <li><a href="#contact" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Contato</a></li>
             </ul>
-            <div class="nav-actions">
-                <button class="cart-btn" onclick="toggleCart()">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCart()" class="relative p-2 text-[#8a7462] hover:text-[#cc9fa4] transition-colors duration-300">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-[#cc9fa4] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </button>
-                <button class="login-btn">
-                    <i class="fas fa-user"></i>
-                    Login
+                
+                <!-- Menu Mobile -->
+                <button id="hamburger" class="md:hidden text-[#8a7462]">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
             </div>
         </nav>
+
+        
+        <div id="mobileMenu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
+            <div class="p-6">
+                <h2 class="text-[#8a7462] text-xl font-bold mb-6">Menu</h2>                <ul class="space-y-4">
+                    <li><a href="#home" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Início</a></li>
+                    <li><a href="#books" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Livros</a></li>
+                    <li><a href="#about" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Sobre</a></li>
+                    <li><a href="#register" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Cadastro</a></li>
+                    <li><a href="#contact" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Contato</a></li>
+                </ul>
+            </div>
+        </div>
     </header>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>Carrinho de Compras</h3>
-            <button class="close-cart" onclick="toggleCart()">
-                <i class="fas fa-times"></i>
+    <!-- Carrinho -->
+    <div id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b border-[#e4d6d8]">
+            <div class="flex items-center justify-between">
+                <h2 class="text-[#8a7462] text-xl font-bold">Carrinho</h2>
+                <button onclick="toggleCart()" class="text-[#8a7462] hover:text-[#cc9fa4]">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="cartItems" class="flex-1 overflow-y-auto" style="height: calc(100vh - 200px);">
+        </div>
+        
+        <div class="p-6 border-t border-[#e4d6d8] bg-[#f7f6f4]">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[#8a7462] font-bold">Total:</span>
+                <span class="text-[#8a7462] font-bold text-xl">R$ <span id="cartTotal">0,00</span></span>
+            </div>
+            <button class="w-full bg-[#cc9fa4] text-white py-3 rounded-lg hover:bg-[#a67a80] transition-colors duration-300">
+                Finalizar Compra
             </button>
         </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Itens do carrinho serão adicionados aqui dinamicamente -->
-            <div class="empty-cart">
-                <i class="fas fa-shopping-cart"></i>
-                <p>Seu carrinho está vazio</p>
-            </div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <strong>Total: R$ <span id="cartTotal">0,00</span></strong>
-            </div>
-            <button class="checkout-btn">Finalizar Compra</button>
-        </div>
-    </div>    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Bem-vindo à Once Upon a Book</h1>
-            <p>Descubra mundos incríveis através da leitura</p>
-            <a href="#books" class="btn-primary">Ver Catálogo</a>
-        </div>
-    </section>
+    </div>
 
-    <!-- Featured Books Section -->
-    <section id="books" class="books-section">
-        <div class="container">
-            <h2>Nossos Livros</h2>
-            <div class="books-filter">
-                <button class="filter-btn active" data-category="all">Todos</button>
-                <button class="filter-btn" data-category="romance">Romance</button>
-                <button class="filter-btn" data-category="fantasia">Fantasia</button>
-                <button class="filter-btn" data-category="misterio">Mistério</button>
-                <button class="filter-btn" data-category="biografia">Biografia</button>
+    <main class="w-full">
+        <!-- Seção Inicial -->
+        <section id="home" class="bg-gradient-to-br from-[#f7f6f4] to-[#a6998a] text-[#4f3f33] py-32 md:py-40 text-center mt-16 md:mt-20 w-full">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-4xl md:text-6xl mb-4 text-[#8a7462] font-bold font-playfair">Bem-vindo à Once Upon a Book</h2>
+                <p class="text-lg md:text-xl mb-8 text-[#655548]">Descubra mundos incríveis através da leitura</p>
+                <a href="#books" class="inline-block bg-[#cc9fa4] text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:bg-[#a67a80] hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                    Ver Catálogo
+                </a>
             </div>
-            <div class="books-grid" id="booksGrid">
-                <!-- Espaço reservado para adicionar livros -->
-                <div class="book-placeholder">
-                    <div class="placeholder-content">
-                        <i class="fas fa-plus"></i>
-                        <h3>Adicione seus livros aqui</h3>
-                        <p>Este espaço está reservado para você adicionar seus livros favoritos</p>
-                    </div>
-                </div>
-                <div class="book-placeholder">
-                    <div class="placeholder-content">
-                        <i class="fas fa-book-open"></i>
-                        <h3>Catálogo em construção</h3>
-                        <p>Em breve teremos uma vasta coleção de livros</p>
-                    </div>
-                </div>
-                <div class="book-placeholder">
-                    <div class="placeholder-content">
-                        <i class="fas fa-heart"></i>
-                        <h3>Seus favoritos</h3>
-                        <p>Espaço para os livros mais queridos pelos clientes</p>
-                    </div>
+        </section>
+        
+        <!-- Seção de Livros -->
+        <section id="books" class="py-16 md:py-24 bg-white w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-8 text-[#8a7462] font-bold font-playfair">Nossos Livros</h2>
+                <div class="flex justify-center gap-2 md:gap-4 mb-12 flex-wrap">
+                    <button class="bg-[#cc9fa4] text-white border-2 border-[#cc9fa4] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium filter-btn active" data-category="all">Todos</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="romance">Romance</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="fantasia">Fantasia</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="misterio">Mistério</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="biografia">Biografia</button>
+                </div>                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch" id="booksGrid">
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2>Sobre a Once Upon a Book</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Somos uma livraria online apaixonada por conectar leitores aos melhores livros. Nossa missão é tornar a leitura acessível e prazerosa para todos.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Entrega rápida e segura</li>
-                        <li><i class="fas fa-check"></i> Catálogo diversificado</li>
-                        <li><i class="fas fa-check"></i> Preços competitivos</li>
-                        <li><i class="fas fa-check"></i> Atendimento personalizado</li>
-                    </ul>
+        </section>
+        
+        <!-- Seção Sobre -->
+        <section id="about" class="py-16 md:py-24 bg-[#f7f6f4] w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Sobre a Once Upon a Book</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                    <div>
+                        <p class="text-lg mb-8 text-[#655548]">Somos uma livraria online apaixonada por conectar leitores aos melhores livros. Nossa missão é tornar a leitura acessível e prazerosa para todos.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-80 h-60 md:w-96 md:h-72 bg-gradient-to-r from-[#ede3e5] to-[#a6998a] rounded-2xl flex items-center justify-center shadow-2xl">
+                            <i class="fas fa-book-reader text-[#8a7462] text-6xl md:text-7xl"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-book-reader"></i>
+            </div>        </section>
+        
+        <!-- Seção de Cadastro -->
+        <section id="register" class="py-16 md:py-24 bg-white w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Cadastre-se</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <div>
+                        <h3 class="text-[#8a7462] mb-8 text-2xl font-semibold">Vantagens de se cadastrar:</h3>
+                        <div class="space-y-6">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-[#f7f6f4] rounded-2xl">
+                                <i class="fas fa-percentage text-[#cc9fa4] text-3xl min-w-max"></i>
+                                <div>
+                                    <h4 class="text-[#8a7462] mb-2 font-semibold">Descontos Exclusivos</h4>
+                                    <p class="text-[#655548] text-sm">Até 20% de desconto em livros selecionados</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-[#f7f6f4] rounded-2xl">
+                                <i class="fas fa-truck text-[#cc9fa4] text-3xl min-w-max"></i>
+                                <div>
+                                    <h4 class="text-[#8a7462] mb-2 font-semibold">Frete Grátis</h4>
+                                    <p class="text-[#655548] text-sm">Frete grátis em compras acima de R$ 80,00</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-[#f7f6f4] rounded-2xl">
+                                <i class="fas fa-star text-[#cc9fa4] text-3xl min-w-max"></i>
+                                <div>
+                                    <h4 class="text-[#8a7462] mb-2 font-semibold">Programa de Pontos</h4>
+                                    <p class="text-[#655548] text-sm">Acumule pontos e troque por livros</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="bg-[#f7f6f4] p-6 md:p-8 rounded-2xl shadow-2xl">
+                        <h3 class="text-[#8a7462] mb-8 text-center text-xl font-semibold">Criar Conta</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="Nome completo" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                            <input type="email" placeholder="E-mail" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="password" placeholder="Senha" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                            <input type="password" placeholder="Confirmar senha" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <label class="flex items-start gap-3 cursor-pointer text-[#4f3f33]">
+                                <input type="checkbox" required class="mt-1">
+                                <span>Aceito os <a href="#" class="text-[#cc9fa4] hover:underline">termos de uso</a> e <a href="#" class="text-[#cc9fa4] hover:underline">política de privacidade</a></span>
+                            </label>
+                            <label class="flex items-start gap-3 cursor-pointer text-[#4f3f33]">
+                                <input type="checkbox" class="mt-1">
+                                <span>Desejo receber ofertas e novidades por e-mail</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full bg-[#cc9fa4] text-white py-4 rounded-full font-bold transition-all duration-300 hover:bg-[#a67a80] hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                            Criar Conta
+                        </button>
+                        <p class="text-center mt-4 text-[#655548]">Já tem uma conta? <a href="#" class="text-[#cc9fa4] font-medium hover:underline">Faça login</a></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção de Contato -->
+        <section id="contact" class="py-16 md:py-24 bg-[#ede3e5] w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Entre em Contato</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <form id="formContato" class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl space-y-4">
+                        <input type="text" placeholder="Seu nome" class="w-full px-4 py-3 rounded-lg border border-[#e4d6d8] focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]">
+                        <input type="email" placeholder="Seu e-mail" class="w-full px-4 py-3 rounded-lg border border-[#e4d6d8] focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]">
+                        <textarea placeholder="Sua mensagem" rows="5" class="w-full px-4 py-3 rounded-lg border border-[#e4d6d8] focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]"></textarea>
+                        <button type="submit" class="w-full bg-[#cc9fa4] text-white py-3 rounded-lg hover:bg-[#a67a80] transition-colors duration-300">
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                    <div id="mensagemAgradecimento" class="hidden flex flex-col items-center justify-center bg-[#f7f6f4] p-8 rounded-2xl shadow-2xl mx-auto w-full max-w-md mt-4">
+                        <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
+                        <h3 class="text-[#8a7462] text-xl font-bold mb-2">Obrigado!</h3>
+                        <p class="text-[#655548] text-center">Sua mensagem foi enviada com sucesso!</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Registration Section -->
-    <section id="register" class="register-section">
-        <div class="container">
-            <h2>Cadastre-se</h2>
-            <div class="register-content">
-                <div class="register-benefits">
-                    <h3>Vantagens de se cadastrar:</h3>
-                    <div class="benefit-item">
-                        <i class="fas fa-percentage"></i>
-                        <div>
-                            <h4>Descontos Exclusivos</h4>
-                            <p>Até 20% de desconto em livros selecionados</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-truck"></i>
-                        <div>
-                            <h4>Frete Grátis</h4>
-                            <p>Frete grátis em compras acima de R$ 80,00</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-star"></i>
-                        <div>
-                            <h4>Programa de Pontos</h4>
-                            <p>Acumule pontos e troque por livros</p>
-                        </div>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-bell"></i>
-                        <div>
-                            <h4>Notificações</h4>
-                            <p>Seja o primeiro a saber sobre lançamentos</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="register-form">
-                    <h3>Criar Conta</h3>
-                    <div class="form-row">
-                        <input type="text" placeholder="Nome completo" required>
-                        <input type="email" placeholder="E-mail" required>
-                    </div>
-                    <div class="form-row">
-                        <input type="password" placeholder="Senha" required>
-                        <input type="password" placeholder="Confirmar senha" required>
-                    </div>
-                    <div class="form-row">
-                        <input type="tel" placeholder="Telefone" required>
-                        <input type="date" placeholder="Data de nascimento" required>
-                    </div>
-                    <div class="checkbox-group">
-                        <label>
-                            <input type="checkbox" required>
-                            <span class="checkmark"></span>
-                            Aceito os <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>
-                        </label>
-                        <label>
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            Desejo receber ofertas e novidades por e-mail
-                        </label>
-                    </div>
-                    <button type="submit" class="btn-primary">Criar Conta</button>
-                    <p class="login-link">Já tem uma conta? <a href="#">Faça login</a></p>
-                </form>
-            </div>
-        </div>
-    </section>    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Entre em Contato</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Endereço</h4>
-                            <p>Rua dos Livros, 123 - Centro, São Paulo - SP</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Telefone</h4>
-                            <p>(11) 3456-7890</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>contato@onceuponabook.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Horário de Funcionamento</h4>
-                            <p>Segunda a Sexta: 9h às 18h<br>Sábado: 9h às 15h</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <h3>Envie sua Mensagem</h3>
-                    <input type="text" placeholder="Seu Nome" required>
-                    <input type="email" placeholder="Seu Email" required>
-                    <select required>
-                        <option value="">Assunto</option>
-                        <option value="duvida">Dúvida sobre produto</option>
-                        <option value="pedido">Status do pedido</option>
-                        <option value="troca">Troca/Devolução</option>
-                        <option value="sugestao">Sugestão</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                    <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
-                    <button type="submit" class="btn-primary">Enviar Mensagem</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
+        </section>
+    </main>
+    
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><i class="fas fa-book"></i> Once Upon a Book</h3>
-                    <p>Sua livraria online de confiança. Conectando leitores aos melhores livros desde 2019</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
+    <footer class="bg-[#7d6c5e] text-[#f7f6f4] py-12 w-full">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="flex items-center gap-2 mb-4 text-[#ede3e5] text-xl font-semibold">
+                        <i class="fas fa-book text-[#cc9fa4]"></i>
+                        Once Upon a Book
+                    </h3>
+                    <p class="mb-4 opacity-90">Sua livraria online de confiança. Conectando leitores aos melhores livros desde 2019</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Categorias</h4>
-                    <ul>
-                        <li><a href="#">Romance</a></li>
-                        <li><a href="#">Fantasia</a></li>
-                        <li><a href="#">Mistério</a></li>
-                        <li><a href="#">Biografia</a></li>
-                        <li><a href="#">Autoajuda</a></li>
+                <div>
+                    <h4 class="mb-4 text-[#ede3e5] font-semibold">Categorias</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Romance</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Fantasia</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Mistério</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Biografia</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h4>Atendimento</h4>
-                    <ul>
-                        <li><a href="#">Central de Ajuda</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Termos de Uso</a></li>
-                        <li><a href="#">Trocas e Devoluções</a></li>
-                        <li><a href="#">Entrega</a></li>
+                <div>
+                    <h4 class="mb-4 text-[#ede3e5] font-semibold">Atendimento</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Central de Ajuda</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Termos de Uso</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Receba novidades e ofertas especiais</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Seu e-mail">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                    <div class="payment-methods">
-                        <i class="fab fa-cc-visa"></i>
-                        <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-paypal"></i>
-                        <i class="fas fa-barcode"></i>
+                <div>
+                    <h4 class="mb-4 text-[#ede3e5] font-semibold">Newsletter</h4>
+                    <p class="mb-4 opacity-90">Receba novidades e ofertas especiais</p>
+                    <div class="flex gap-2 mb-4">
+                        <input type="email" placeholder="Seu e-mail" class="flex-1 px-4 py-3 rounded-full bg-[#756650] text-white placeholder-gray-300 border-none focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]">
+                        <button type="submit" class="bg-[#cc9fa4] text-white px-4 py-3 rounded-full hover:bg-[#a67a80] transition-colors duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
+            <div class="text-center pt-8 border-t border-[#756650] opacity-80">
                 <p>&copy; 2025 Once Upon a Book. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
+    <script src="./src/books.js"></script>
     <script>
-        // Carrinho de compras
-        let cart = [];
-        let cartCount = 0;
-        let cartTotal = 0;
-
+        //carrinho
         function toggleCart() {
             const cartSidebar = document.getElementById('cartSidebar');
-            cartSidebar.classList.toggle('active');
+            cartSidebar.classList.toggle('translate-x-full');
         }
 
-        function addToCart(book) {
-            cart.push(book);
-            cartCount++;
-            cartTotal += book.price;
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.querySelector('.cart-count').textContent = cartCount;
-            document.getElementById('cartTotal').textContent = cartTotal.toFixed(2).replace('.', ',');
-            
-            const cartItems = document.getElementById('cartItems');
-            if (cartCount === 0) {
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>Seu carrinho está vazio</p>
-                    </div>
-                `;
-            } else {
-                // Atualizar itens do carrinho
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <img src="${item.image}" alt="${item.title}">
-                        <div class="item-details">
-                            <h4>${item.title}</h4>
-                            <p>R$ ${item.price.toFixed(2).replace('.', ',')}</p>
-                        </div>
-                        <button onclick="removeFromCart(${item.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Mobile menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+        document.getElementById('hamburger').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('-translate-x-full');
         });
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+        
+        
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const mobileMenu = document.getElementById('mobileMenu');
+                mobileMenu.classList.add('-translate-x-full');
             });
         });
 
-        // Filter books
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                // Aqui você pode implementar a lógica de filtro quando adicionar os livros
-            });
-        });
-
-        // Form validation
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Formulário enviado com sucesso!');
-            });
+        document.getElementById('formContato').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('formContato').classList.add('hidden');
+            document.getElementById('mensagemAgradecimento').classList.remove('hidden');
         });
     </script>
 </body>
