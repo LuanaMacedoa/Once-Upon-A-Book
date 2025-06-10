@@ -1,365 +1,284 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Once Upon a Book - Livraria Online</title>
-    
-    <!-- Tailwind CSS CDN -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Once Upon a Book - Sua Livraria Online</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'primary-pink': '#e4d6d8',
-              'light-pink': '#ede3e5',
-              'dark-pink': '#cc9fa4',
-              'primary-brown': '#8a7462',
-              'light-brown': '#a6998a',
-              'dark-brown': '#6b5a4c',
-              'cool-brown': '#756650',
-              'cream': '#f7f6f4',
-              'text-dark': '#4f3f33',
-              'text-light': '#655548',
-              'footer-brown': '#7d6c5e',
-              'footer-light': '#8a7766',
-              'hover-dark-pink': '#a67a80'
-            }
-          }
-        }
-      }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#f7f6f4] to-[#ede3e5] flex flex-col items-center justify-center font-poppins">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  </head>
-  <body class="bg-gradient-to-br from-cream to-light-pink min-h-screen">
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-
-     <header class="bg-cream shadow-lg fixed w-full top-0 z-50">
-        <nav class="flex justify-between items-center py-4 px-4 md:px-8 max-w-6xl mx-auto">
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-sm shadow-lg fixed top-0 left-0 right-0 z-50">
+        <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <i class="fas fa-book text-dark-pink text-2xl"></i>
-                <h1 class="text-primary-brown text-2xl md:text-3xl font-bold">Once Upon a Book</h1>
+                <i class="fas fa-book text-[#cc9fa4] text-2xl"></i>
+                <h1 class="text-[#8a7462] text-2xl font-bold font-playfair">Once Upon a Book</h1>
             </div>
-            <ul class="hidden md:flex list-none gap-8">
-                <li><a href="#home" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300 relative group">Início</a></li>
-                <li><a href="#books" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300 relative group">Livros</a></li>
-                <li><a href="#about" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300 relative group">Sobre</a></li>
-                <li><a href="#register" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300 relative group">Cadastro</a></li>
-                <li><a href="#contact" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300 relative group">Contato</a></li>
+            
+            <!-- Menu Desktop -->            <ul class="hidden md:flex gap-8">
+                <li><a href="#home" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Início</a></li>
+                <li><a href="#books" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Livros</a></li>
+                <li><a href="#about" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Sobre</a></li>
+                <li><a href="#register" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Cadastro</a></li>
+                <li><a href="#contact" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Contato</a></li>
             </ul>
-            <div class="flex items-center gap-2 md:gap-4">
-                <button class="bg-dark-pink text-white px-3 md:px-4 py-2 rounded-full hover:bg-hover-dark-pink transition-all duration-300 hover:-translate-y-1 relative" onclick="toggleCart()">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="absolute -top-2 -right-2 bg-primary-brown text-white rounded-full w-5 h-5 text-xs flex items-center justify-center" id="cartCount">0</span>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCart()" class="relative p-2 text-[#8a7462] hover:text-[#cc9fa4] transition-colors duration-300">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-[#cc9fa4] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </button>
-                <button class="bg-dark-pink text-white px-3 md:px-4 py-2 rounded-full hover:bg-hover-dark-pink transition-all duration-300 hover:-translate-y-1">
-                    <i class="fas fa-user"></i>
-                    <span class="hidden sm:inline ml-1">Login</span>
+                
+                <!-- Menu Mobile -->
+                <button id="hamburger" class="md:hidden text-[#8a7462]">
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
-            </div>
-            <div class="md:hidden flex flex-col cursor-pointer" id="hamburger">
-                <span class="w-6 h-0.5 bg-primary-brown my-1 transition-all duration-300"></span>
-                <span class="w-6 h-0.5 bg-primary-brown my-1 transition-all duration-300"></span>
-                <span class="w-6 h-0.5 bg-primary-brown my-1 transition-all duration-300"></span>
             </div>
         </nav>
+
         
-        <ul class="md:hidden bg-cream w-full text-center py-8 shadow-lg transform -translate-x-full transition-transform duration-300" id="mobileMenu">
-            <li class="py-2"><a href="#home" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300">Início</a></li>
-            <li class="py-2"><a href="#books" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300">Livros</a></li>
-            <li class="py-2"><a href="#about" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300">Sobre</a></li>
-            <li class="py-2"><a href="#register" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300">Cadastro</a></li>
-            <li class="py-2"><a href="#contact" class="text-primary-brown font-medium hover:text-dark-pink transition-colors duration-300">Contato</a></li>
-        </ul>
-    </header>    
-    <div class="fixed top-0 right-0 w-full md:w-96 h-screen bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col" id="cartSidebar">
-        <div class="flex justify-between items-center p-5 border-b border-primary-pink bg-cream">
-            <h3 class="text-primary-brown text-lg font-semibold">Carrinho de Compras</h3>
-            <button class="text-primary-brown text-xl hover:text-dark-pink transition-colors" onclick="toggleCart()">
-                <i class="fas fa-times"></i>
+        <div id="mobileMenu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
+            <div class="p-6">
+                <h2 class="text-[#8a7462] text-xl font-bold mb-6">Menu</h2>                <ul class="space-y-4">
+                    <li><a href="#home" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Início</a></li>
+                    <li><a href="#books" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Livros</a></li>
+                    <li><a href="#about" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Sobre</a></li>
+                    <li><a href="#register" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Cadastro</a></li>
+                    <li><a href="#contact" class="block text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Carrinho -->
+    <div id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b border-[#e4d6d8]">
+            <div class="flex items-center justify-between">
+                <h2 class="text-[#8a7462] text-xl font-bold">Carrinho</h2>
+                <button onclick="toggleCart()" class="text-[#8a7462] hover:text-[#cc9fa4]">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="cartItems" class="flex-1 overflow-y-auto" style="height: calc(100vh - 200px);">
+        </div>
+        
+        <div class="p-6 border-t border-[#e4d6d8] bg-[#f7f6f4]">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[#8a7462] font-bold">Total:</span>
+                <span class="text-[#8a7462] font-bold text-xl">R$ <span id="cartTotal">0,00</span></span>
+            </div>
+            <button class="w-full bg-[#cc9fa4] text-white py-3 rounded-lg hover:bg-[#a67a80] transition-colors duration-300">
+                Finalizar Compra
             </button>
         </div>
-        <div class="flex-1 p-5 overflow-y-auto" id="cartItems">
-            
-            <div class="text-center py-12 text-text-light">
-                <i class="fas fa-shopping-cart text-primary-pink text-5xl mb-4"></i>
-                <p>Seu carrinho está vazio</p>
+    </div>
+
+    <main class="w-full">
+        <!-- Seção Inicial -->
+        <section id="home" class="bg-gradient-to-br from-[#f7f6f4] to-[#a6998a] text-[#4f3f33] py-32 md:py-40 text-center mt-16 md:mt-20 w-full">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-4xl md:text-6xl mb-4 text-[#8a7462] font-bold font-playfair">Bem-vindo à Once Upon a Book</h2>
+                <p class="text-lg md:text-xl mb-8 text-[#655548]">Descubra mundos incríveis através da leitura</p>
+                <a href="#books" class="inline-block bg-[#cc9fa4] text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:bg-[#a67a80] hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                    Ver Catálogo
+                </a>
             </div>
-        </div>
-        <div class="p-5 border-t border-primary-pink bg-cream">
-            <div class="mb-4 text-primary-brown text-xl font-semibold">
-                Total: R$ <span id="cartTotal">0,00</span>
+        </section>
+        
+        <!-- Seção de Livros -->
+        <section id="books" class="py-16 md:py-24 bg-white w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-8 text-[#8a7462] font-bold font-playfair">Nossos Livros</h2>
+                <div class="flex justify-center gap-2 md:gap-4 mb-12 flex-wrap">
+                    <button class="bg-[#cc9fa4] text-white border-2 border-[#cc9fa4] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium filter-btn active" data-category="all">Todos</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="romance">Romance</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="fantasia">Fantasia</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="misterio">Mistério</button>
+                    <button class="bg-[#ede3e5] text-[#8a7462] border-2 border-[#e4d6d8] px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-[#cc9fa4] hover:text-white hover:border-[#cc9fa4] filter-btn" data-category="biografia">Biografia</button>
+                </div>                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch" id="booksGrid">
+                </div>
             </div>
-            <button class="w-full bg-dark-pink text-white py-4 rounded-lg text-lg font-bold hover:bg-hover-dark-pink transition-colors duration-300">Finalizar Compra</button>
-        </div>
-    </div>    <!-- Hero Section -->
-    <section id="home" class="bg-gradient-to-br from-cream to-light-brown text-text-dark py-32 md:py-40 text-center mt-16 md:mt-20">
-        <div class="max-w-4xl mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl mb-4 text-primary-brown font-bold">Bem-vindo à Once Upon a Book</h1>
-            <p class="text-lg md:text-xl mb-8 text-text-light">Descubra mundos incríveis através da leitura</p>
-            <a href="#books" class="inline-block bg-dark-pink text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:bg-hover-dark-pink hover:-translate-y-1 shadow-lg hover:shadow-xl">Ver Catálogo</a>
-        </div>
-    </section>    <!-- Featured Books Section -->
-    <section id="books" class="py-16 md:py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-center text-3xl md:text-4xl mb-8 text-primary-brown font-bold">Nossos Livros</h2>
-            <div class="flex justify-center gap-2 md:gap-4 mb-12 flex-wrap">
-                <button class="bg-dark-pink text-white border-2 border-dark-pink px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 filter-btn active" data-category="all">Todos</button>
-                <button class="bg-light-pink text-primary-brown border-2 border-primary-pink px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-dark-pink hover:text-white hover:border-dark-pink filter-btn" data-category="romance">Romance</button>
-                <button class="bg-light-pink text-primary-brown border-2 border-primary-pink px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-dark-pink hover:text-white hover:border-dark-pink filter-btn" data-category="fantasia">Fantasia</button>
-                <button class="bg-light-pink text-primary-brown border-2 border-primary-pink px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-dark-pink hover:text-white hover:border-dark-pink filter-btn" data-category="misterio">Mistério</button>
-                <button class="bg-light-pink text-primary-brown border-2 border-primary-pink px-4 md:px-6 py-2 md:py-3 rounded-full cursor-pointer font-medium transition-all duration-300 hover:bg-dark-pink hover:text-white hover:border-dark-pink filter-btn" data-category="biografia">Biografia</button>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="booksGrid">
-                
-                <div class="bg-cream border-2 border-dashed border-primary-pink rounded-2xl p-8 md:p-12 text-center min-h-96 flex items-center justify-center transition-all duration-300 hover:border-dark-pink hover:bg-light-pink">
+        </section>
+        
+        <!-- Seção Sobre -->
+        <section id="about" class="py-16 md:py-24 bg-[#f7f6f4] w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Sobre a Once Upon a Book</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                     <div>
-                        <i class="fas fa-plus text-dark-pink text-4xl md:text-5xl mb-4"></i>
-                        <h3 class="text-primary-brown mb-4 text-lg md:text-xl font-semibold">Adicione seus livros aqui</h3>
-                        <p class="text-text-light">Este espaço está reservado para você adicionar seus livros favoritos</p>
+                        <p class="text-lg mb-8 text-[#655548]">Somos uma livraria online apaixonada por conectar leitores aos melhores livros. Nossa missão é tornar a leitura acessível e prazerosa para todos.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-80 h-60 md:w-96 md:h-72 bg-gradient-to-r from-[#ede3e5] to-[#a6998a] rounded-2xl flex items-center justify-center shadow-2xl">
+                            <i class="fas fa-book-reader text-[#8a7462] text-6xl md:text-7xl"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-cream border-2 border-dashed border-primary-pink rounded-2xl p-8 md:p-12 text-center min-h-96 flex items-center justify-center transition-all duration-300 hover:border-dark-pink hover:bg-light-pink">
+            </div>        </section>
+        
+        <!-- Seção de Cadastro -->
+        <section id="register" class="py-16 md:py-24 bg-white w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Cadastre-se</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                     <div>
-                        <i class="fas fa-book-open text-dark-pink text-4xl md:text-5xl mb-4"></i>
-                        <h3 class="text-primary-brown mb-4 text-lg md:text-xl font-semibold">Catálogo em construção</h3>
-                        <p class="text-text-light">Em breve teremos uma vasta coleção de livros</p>
-                    </div>
-                </div>
-                <div class="bg-cream border-2 border-dashed border-primary-pink rounded-2xl p-8 md:p-12 text-center min-h-96 flex items-center justify-center transition-all duration-300 hover:border-dark-pink hover:bg-light-pink">
-                    <div>
-                        <i class="fas fa-heart text-dark-pink text-4xl md:text-5xl mb-4"></i>
-                        <h3 class="text-primary-brown mb-4 text-lg md:text-xl font-semibold">Seus favoritos</h3>
-                        <p class="text-text-light">Espaço para os livros mais queridos pelos clientes</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>    
-    <section id="about" class="py-16 md:py-24 bg-cream">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-center text-3xl md:text-4xl mb-12 text-primary-brown font-bold">Sobre a Once Upon a Book</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                <div>
-                    <p class="text-lg mb-8 text-text-light">Somos uma livraria online apaixonada por conectar leitores aos melhores livros. Nossa missão é tornar a leitura acessível e prazerosa para todos.</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center gap-4 text-lg text-text-dark">
-                            <i class="fas fa-check text-dark-pink text-xl"></i>
-                            Entrega rápida e segura
-                        </li>
-                        <li class="flex items-center gap-4 text-lg text-text-dark">
-                            <i class="fas fa-check text-dark-pink text-xl"></i>
-                            Catálogo diversificado
-                        </li>
-                        <li class="flex items-center gap-4 text-lg text-text-dark">
-                            <i class="fas fa-check text-dark-pink text-xl"></i>
-                            Preços competitivos
-                        </li>
-                        <li class="flex items-center gap-4 text-lg text-text-dark">
-                            <i class="fas fa-check text-dark-pink text-xl"></i>
-                            Atendimento personalizado
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex justify-center">
-                    <div class="w-80 h-60 md:w-96 md:h-72 bg-gradient-to-r from-light-pink to-light-brown rounded-2xl flex items-center justify-center shadow-2xl">
-                        <i class="fas fa-book-reader text-primary-brown text-6xl md:text-7xl"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>   
-    <section id="register" class="py-16 md:py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-center text-3xl md:text-4xl mb-12 text-primary-brown font-bold">Cadastre-se</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-                <div>
-                    <h3 class="text-primary-brown mb-8 text-2xl font-semibold">Vantagens de se cadastrar:</h3>
-                    <div class="space-y-6">
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-cream rounded-2xl transition-transform duration-300 hover:-translate-y-1">
-                            <i class="fas fa-percentage text-dark-pink text-3xl min-w-max"></i>
-                            <div>
-                                <h4 class="text-primary-brown mb-2 font-semibold">Descontos Exclusivos</h4>
-                                <p class="text-text-light text-sm">Até 20% de desconto em livros selecionados</p>
+                        <h3 class="text-[#8a7462] mb-8 text-2xl font-semibold">Vantagens de se cadastrar:</h3>
+                        <div class="space-y-6">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-[#f7f6f4] rounded-2xl">
+                                <i class="fas fa-percentage text-[#cc9fa4] text-3xl min-w-max"></i>
+                                <div>
+                                    <h4 class="text-[#8a7462] mb-2 font-semibold">Descontos Exclusivos</h4>
+                                    <p class="text-[#655548] text-sm">Até 20% de desconto em livros selecionados</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-cream rounded-2xl transition-transform duration-300 hover:-translate-y-1">
-                            <i class="fas fa-truck text-dark-pink text-3xl min-w-max"></i>
-                            <div>
-                                <h4 class="text-primary-brown mb-2 font-semibold">Frete Grátis</h4>
-                                <p class="text-text-light text-sm">Frete grátis em compras acima de R$ 80,00</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-[#f7f6f4] rounded-2xl">
+                                <i class="fas fa-truck text-[#cc9fa4] text-3xl min-w-max"></i>
+                                <div>
+                                    <h4 class="text-[#8a7462] mb-2 font-semibold">Frete Grátis</h4>
+                                    <p class="text-[#655548] text-sm">Frete grátis em compras acima de R$ 80,00</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-cream rounded-2xl transition-transform duration-300 hover:-translate-y-1">
-                            <i class="fas fa-star text-dark-pink text-3xl min-w-max"></i>
-                            <div>
-                                <h4 class="text-primary-brown mb-2 font-semibold">Programa de Pontos</h4>
-                                <p class="text-text-light text-sm">Acumule pontos e troque por livros</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-cream rounded-2xl transition-transform duration-300 hover:-translate-y-1">
-                            <i class="fas fa-bell text-dark-pink text-3xl min-w-max"></i>
-                            <div>
-                                <h4 class="text-primary-brown mb-2 font-semibold">Notificações</h4>
-                                <p class="text-text-light text-sm">Seja o primeiro a saber sobre lançamentos</p>
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-6 bg-[#f7f6f4] rounded-2xl">
+                                <i class="fas fa-star text-[#cc9fa4] text-3xl min-w-max"></i>
+                                <div>
+                                    <h4 class="text-[#8a7462] mb-2 font-semibold">Programa de Pontos</h4>
+                                    <p class="text-[#655548] text-sm">Acumule pontos e troque por livros</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <form class="bg-[#f7f6f4] p-6 md:p-8 rounded-2xl shadow-2xl">
+                        <h3 class="text-[#8a7462] mb-8 text-center text-xl font-semibold">Criar Conta</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="Nome completo" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                            <input type="email" placeholder="E-mail" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="password" placeholder="Senha" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                            <input type="password" placeholder="Confirmar senha" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <label class="flex items-start gap-3 cursor-pointer text-[#4f3f33]">
+                                <input type="checkbox" required class="mt-1">
+                                <span>Aceito os <a href="#" class="text-[#cc9fa4] hover:underline">termos de uso</a> e <a href="#" class="text-[#cc9fa4] hover:underline">política de privacidade</a></span>
+                            </label>
+                            <label class="flex items-start gap-3 cursor-pointer text-[#4f3f33]">
+                                <input type="checkbox" class="mt-1">
+                                <span>Desejo receber ofertas e novidades por e-mail</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full bg-[#cc9fa4] text-white py-4 rounded-full font-bold transition-all duration-300 hover:bg-[#a67a80] hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                            Criar Conta
+                        </button>
+                        <p class="text-center mt-4 text-[#655548]">Já tem uma conta? <a href="#" class="text-[#cc9fa4] font-medium hover:underline">Faça login</a></p>
+                    </form>
                 </div>
-                <form class="bg-cream p-6 md:p-8 rounded-2xl shadow-2xl">
-                    <h3 class="text-primary-brown mb-8 text-center text-xl font-semibold">Criar Conta</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <input type="text" placeholder="Nome completo" required class="p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                        <input type="email" placeholder="E-mail" required class="p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <input type="password" placeholder="Senha" required class="p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                        <input type="password" placeholder="Confirmar senha" required class="p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <input type="tel" placeholder="Telefone" required class="p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                        <input type="date" placeholder="Data de nascimento" required class="p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                    </div>
-                    <div class="space-y-4 mb-8">
-                        <label class="flex items-start gap-3 cursor-pointer text-text-dark">
-                            <input type="checkbox" required class="mt-1">
-                            <span>Aceito os <a href="#" class="text-dark-pink hover:underline">termos de uso</a> e <a href="#" class="text-dark-pink hover:underline">política de privacidade</a></span>
-                        </label>
-                        <label class="flex items-start gap-3 cursor-pointer text-text-dark">
-                            <input type="checkbox" class="mt-1">
-                            <span>Desejo receber ofertas e novidades por e-mail</span>
-                        </label>
-                    </div>
-                    <button type="submit" class="w-full bg-dark-pink text-white py-4 rounded-full font-bold transition-all duration-300 hover:bg-hover-dark-pink hover:-translate-y-1 shadow-lg hover:shadow-xl">Criar Conta</button>
-                    <p class="text-center mt-4 text-text-light">Já tem uma conta? <a href="#" class="text-dark-pink font-medium hover:underline">Faça login</a></p>
-                </form>
             </div>
-        </div>
-    </section>    
-    <section id="contact" class="py-16 md:py-24 bg-light-pink">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-center text-3xl md:text-4xl mb-12 text-primary-brown font-bold">Entre em Contato</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-                <div class="space-y-6">
-                    <div class="flex items-start gap-4 bg-white p-6 rounded-2xl shadow-lg">
-                        <i class="fas fa-map-marker-alt text-dark-pink text-2xl w-8 mt-1"></i>
-                        <div>
-                            <h4 class="text-primary-brown mb-2 font-semibold">Endereço</h4>
-                            <p class="text-text-light">Rua dos Livros, 123 - Centro, São Paulo - SP</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 bg-white p-6 rounded-2xl shadow-lg">
-                        <i class="fas fa-phone text-dark-pink text-2xl w-8 mt-1"></i>
-                        <div>
-                            <h4 class="text-primary-brown mb-2 font-semibold">Telefone</h4>
-                            <p class="text-text-light">(11) 3456-7890</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 bg-white p-6 rounded-2xl shadow-lg">
-                        <i class="fas fa-envelope text-dark-pink text-2xl w-8 mt-1"></i>
-                        <div>
-                            <h4 class="text-primary-brown mb-2 font-semibold">Email</h4>
-                            <p class="text-text-light">contato@onceuponabook.com</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4 bg-white p-6 rounded-2xl shadow-lg">
-                        <i class="fas fa-clock text-dark-pink text-2xl w-8 mt-1"></i>
-                        <div>
-                            <h4 class="text-primary-brown mb-2 font-semibold">Horário de Funcionamento</h4>
-                            <p class="text-text-light">Segunda a Sexta: 9h às 18h<br>Sábado: 9h às 15h</p>
-                        </div>
+        </section>
+        
+        <!-- Seção de Contato -->
+        <section id="contact" class="py-16 md:py-24 bg-[#ede3e5] w-full">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Entre em Contato</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <form id="formContato" class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl space-y-4">
+                        <input type="text" placeholder="Seu nome" class="w-full px-4 py-3 rounded-lg border border-[#e4d6d8] focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]">
+                        <input type="email" placeholder="Seu e-mail" class="w-full px-4 py-3 rounded-lg border border-[#e4d6d8] focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]">
+                        <textarea placeholder="Sua mensagem" rows="5" class="w-full px-4 py-3 rounded-lg border border-[#e4d6d8] focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]"></textarea>
+                        <button type="submit" class="w-full bg-[#cc9fa4] text-white py-3 rounded-lg hover:bg-[#a67a80] transition-colors duration-300">
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                    <div id="mensagemAgradecimento" class="hidden flex flex-col items-center justify-center bg-[#f7f6f4] p-8 rounded-2xl shadow-2xl mx-auto w-full max-w-md mt-4">
+                        <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
+                        <h3 class="text-[#8a7462] text-xl font-bold mb-2">Obrigado!</h3>
+                        <p class="text-[#655548] text-center">Sua mensagem foi enviada com sucesso!</p>
                     </div>
                 </div>
-                <form class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl space-y-4">
-                    <h3 class="text-primary-brown mb-4 text-center text-xl font-semibold">Envie sua Mensagem</h3>
-                    <input type="text" placeholder="Seu Nome" required class="w-full p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                    <input type="email" placeholder="Seu Email" required class="w-full p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink">
-                    <select required class="w-full p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink cursor-pointer">
-                        <option value="">Assunto</option>
-                        <option value="duvida">Dúvida sobre produto</option>
-                        <option value="pedido">Status do pedido</option>
-                        <option value="troca">Troca/Devolução</option>
-                        <option value="sugestao">Sugestão</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                    <textarea placeholder="Sua Mensagem" rows="5" required class="w-full p-4 border-2 border-primary-pink rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-dark-pink font-sans resize-none"></textarea>
-                    <button type="submit" class="w-full bg-dark-pink text-white py-4 rounded-full font-bold transition-all duration-300 hover:bg-hover-dark-pink hover:-translate-y-1 shadow-lg hover:shadow-xl">Enviar Mensagem</button>
-                </form>
             </div>
-        </div>
-    </section>   
-    <footer class="bg-footer-brown text-cream py-12">
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-[#7d6c5e] text-[#f7f6f4] py-12 w-full">
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <h3 class="flex items-center gap-2 mb-4 text-light-pink text-xl font-semibold">
-                        <i class="fas fa-book text-dark-pink"></i>
+                    <h3 class="flex items-center gap-2 mb-4 text-[#ede3e5] text-xl font-semibold">
+                        <i class="fas fa-book text-[#cc9fa4]"></i>
                         Once Upon a Book
                     </h3>
                     <p class="mb-4 opacity-90">Sua livraria online de confiança. Conectando leitores aos melhores livros desde 2019</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 bg-cool-brown rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-dark-pink text-white">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-cool-brown rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-dark-pink text-white">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-cool-brown rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-dark-pink text-white">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-cool-brown rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-dark-pink text-white">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
                 </div>
                 <div>
-                    <h4 class="mb-4 text-light-pink font-semibold">Categorias</h4>
+                    <h4 class="mb-4 text-[#ede3e5] font-semibold">Categorias</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Romance</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Fantasia</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Mistério</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Biografia</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Autoajuda</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Romance</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Fantasia</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Mistério</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Biografia</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="mb-4 text-light-pink font-semibold">Atendimento</h4>
+                    <h4 class="mb-4 text-[#ede3e5] font-semibold">Atendimento</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Central de Ajuda</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Política de Privacidade</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Termos de Uso</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Trocas e Devoluções</a></li>
-                        <li><a href="#" class="text-white hover:text-dark-pink transition-colors duration-300">Entrega</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Central de Ajuda</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-white hover:text-[#cc9fa4] transition-colors duration-300">Termos de Uso</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="mb-4 text-light-pink font-semibold">Newsletter</h4>
+                    <h4 class="mb-4 text-[#ede3e5] font-semibold">Newsletter</h4>
                     <p class="mb-4 opacity-90">Receba novidades e ofertas especiais</p>
                     <div class="flex gap-2 mb-4">
-                        <input type="email" placeholder="Seu e-mail" class="flex-1 px-4 py-3 rounded-full bg-cool-brown text-white placeholder-gray-300 border-none focus:outline-none focus:ring-2 focus:ring-dark-pink">
-                        <button type="submit" class="bg-dark-pink text-white px-4 py-3 rounded-full hover:bg-hover-dark-pink transition-colors duration-300">
+                        <input type="email" placeholder="Seu e-mail" class="flex-1 px-4 py-3 rounded-full bg-[#756650] text-white placeholder-gray-300 border-none focus:outline-none focus:ring-2 focus:ring-[#cc9fa4]">
+                        <button type="submit" class="bg-[#cc9fa4] text-white px-4 py-3 rounded-full hover:bg-[#a67a80] transition-colors duration-300">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
-                    <div class="flex gap-4 text-2xl">
-                        <i class="fab fa-cc-visa text-white hover:text-dark-pink transition-colors duration-300 cursor-pointer"></i>
-                        <i class="fab fa-cc-mastercard text-white hover:text-dark-pink transition-colors duration-300 cursor-pointer"></i>
-                        <i class="fab fa-cc-paypal text-white hover:text-dark-pink transition-colors duration-300 cursor-pointer"></i>
-                        <i class="fas fa-barcode text-white hover:text-dark-pink transition-colors duration-300 cursor-pointer"></i>
-                    </div>
                 </div>
             </div>
-            <div class="text-center pt-8 border-t border-cool-brown opacity-80">
+            <div class="text-center pt-8 border-t border-[#756650] opacity-80">
                 <p>&copy; 2025 Once Upon a Book. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <script src="/src/main.js" type="module"></script>
-  </body>
+    <script src="./src/books.js"></script>
+    <script>
+        //carrinho
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('translate-x-full');
+        }
+
+        document.getElementById('hamburger').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('-translate-x-full');
+        });
+        
+        
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const mobileMenu = document.getElementById('mobileMenu');
+                mobileMenu.classList.add('-translate-x-full');
+            });
+        });
+
+        document.getElementById('formContato').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('formContato').classList.add('hidden');
+            document.getElementById('mensagemAgradecimento').classList.remove('hidden');
+        });
+    </script>
+</body>
 </html>
