@@ -1,5 +1,4 @@
 import './books.js'
-import './finalize.js'
 
 import { CartManager } from './cartManager.js';
 
