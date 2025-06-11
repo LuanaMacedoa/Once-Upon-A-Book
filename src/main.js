@@ -7,6 +7,9 @@ import "./style.css";
 
 renderMensagens();
 
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+
 function toggleCart() {
   const cartSidebar = document.getElementById('cartSidebar');
   cartSidebar.classList.toggle('translate-x-full');
@@ -23,9 +26,6 @@ document.querySelectorAll('#mobileMenu a').forEach(link => {
     mobileMenu.classList.add('-translate-x-full');
   });
 });
-
-const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobileMenu");
 
 hamburger.addEventListener("click", () => {
   const spans = hamburger.querySelectorAll("span");
