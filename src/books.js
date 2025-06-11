@@ -344,7 +344,6 @@ function getCategoryDisplayName(category) {
         'romance': 'Romance',
         'fantasia': 'Fantasia',
         'misterio': 'Mistério',
-        'biografia': 'Biografia',
         'ficção': 'Ficção'
     };
     return displayNames[category] || category;
