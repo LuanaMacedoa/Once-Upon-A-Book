@@ -1,9 +1,28 @@
-import "./style.css";
+import './books.js'
+import './finalize.js'
+
 import { CartManager } from './cartManager.js';
+
+import "./style.css";
 
 renderMensagens();
 
+function toggleCart() {
+  const cartSidebar = document.getElementById('cartSidebar');
+  cartSidebar.classList.toggle('translate-x-full');
+}
 
+document.getElementById('hamburger').addEventListener('click', function () {
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileMenu.classList.toggle('-translate-x-full');
+});
+
+document.querySelectorAll('#mobileMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenu.classList.add('-translate-x-full');
+  });
+});
 
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobileMenu");

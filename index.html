@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Once Upon a Book - Sua Livraria Online</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,9 +12,7 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-[#f7f6f4] to-[#ede3e5] flex flex-col items-center justify-center font-poppins">
-    <script type="module" src="main.js"></script>
-    <script type="module" src="./src/books.js"></script>
-    <script src="./src/finalize.js"></script>
+    
     
     
     <header class="bg-white/95 backdrop-blur-sm shadow-lg fixed top-0 left-0 right-0 z-50">
@@ -265,28 +262,6 @@
             </div>
         </div>
     </footer>
-    <script type="module" src="./src/books.js"></script>
-    <script>
-        
-        function toggleCart() {
-            const cartSidebar = document.getElementById('cartSidebar');
-            cartSidebar.classList.toggle('translate-x-full');
-        }
-
-        document.getElementById('hamburger').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('-translate-x-full');
-        });
-        
-        
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                const mobileMenu = document.getElementById('mobileMenu');
-                mobileMenu.classList.add('-translate-x-full');
-            });
-        });
-
-  
-    </script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>
