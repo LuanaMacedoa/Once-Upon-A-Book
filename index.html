@@ -13,8 +13,11 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-[#f7f6f4] to-[#ede3e5] flex flex-col items-center justify-center font-poppins">
+    <script type="module" src="main.js"></script>
+    <script type="module" src="./src/books.js"></script>
+    <script src="./src/finalize.js"></script>
     
-    <!-- Header -->
+    
     <header class="bg-white/95 backdrop-blur-sm shadow-lg fixed top-0 left-0 right-0 z-50">
         <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -22,7 +25,7 @@
                 <h1 class="text-[#8a7462] text-2xl font-bold font-playfair">Once Upon a Book</h1>
             </div>
             
-            <!-- Menu Desktop -->            <ul class="hidden md:flex gap-8">
+                   <ul class="hidden md:flex gap-8">
                 <li><a href="#home" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Início</a></li>
                 <li><a href="#books" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Livros</a></li>
                 <li><a href="#about" class="text-[#655548] hover:text-[#cc9fa4] transition-colors duration-300">Sobre</a></li>
@@ -36,7 +39,7 @@
                     <span id="cartCount" class="absolute -top-2 -right-2 bg-[#cc9fa4] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </button>
                 
-                <!-- Menu Mobile -->
+                
                 <button id="hamburger" class="md:hidden text-[#8a7462]">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
@@ -70,23 +73,20 @@
         
         <div id="cartItems" class="flex-1 overflow-y-auto" style="height: calc(100vh - 200px);">
         </div>
-        
-        <div class="p-6 border-t border-[#e4d6d8] bg-[#f7f6f4]">
+          <div class="p-6 border-t border-[#e4d6d8] bg-[#f7f6f4]">
             <div class="flex justify-between items-center mb-4">
                 <span class="text-[#8a7462] font-bold">Total:</span>
                 <span class="text-[#8a7462] font-bold text-xl">R$ <span id="cartTotal">0,00</span></span>
             </div>
-            <button class="w-full bg-[#cc9fa4] text-white py-3 rounded-lg hover:bg-[#a67a80] transition-colors duration-300">
-                Finalizar Compra
-            </button>
+            <button id="finalizePurchaseButton" onclick="window.booksManager.finalizePurchase()" class="w-full bg-[#cc9fa4] text-white py-4 rounded-lg font-bold transition-all duration-300 hover:bg-[#a67a80] hover:-translate-y-1 shadow-lg hover:shadow-xl">Finalizar Compra</button>
         </div>
     </div>
 
     <main class="w-full">
-        <!-- Seção Inicial -->
+
         <section id="home" class="bg-gradient-to-br from-[#f7f6f4] to-[#a6998a] text-[#4f3f33] py-32 md:py-40 text-center mt-16 md:mt-20 w-full">
             <div class="max-w-4xl mx-auto px-4">
-                <h2 class="text-4xl md:text-6xl mb-4 text-[#8a7462] font-bold font-playfair">Bem-vindo à Once Upon a Book</h2>
+                <h2 class="text-4xl md:text-6xl mb-4 text-[#8a7462] font-bold font-playfair">Bem-vindo a Once Upon a Book</h2>
                 <p class="text-lg md:text-xl mb-8 text-[#655548]">Descubra mundos incríveis através da leitura</p>
                 <a href="#books" class="inline-block bg-[#cc9fa4] text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:bg-[#a67a80] hover:-translate-y-1 shadow-lg hover:shadow-xl">
                     Ver Catálogo
@@ -94,7 +94,7 @@
             </div>
         </section>
         
-        <!-- Seção de Livros -->
+        <!-- Livros -->
         <section id="books" class="py-16 md:py-24 bg-white w-full">
             <div class="max-w-6xl mx-auto px-4">
                 <h2 class="text-center text-3xl md:text-4xl mb-8 text-[#8a7462] font-bold font-playfair">Nossos Livros</h2>
@@ -109,7 +109,7 @@
             </div>
         </section>
         
-        <!-- Seção Sobre -->
+        
         <section id="about" class="py-16 md:py-24 bg-[#f7f6f4] w-full">
             <div class="max-w-6xl mx-auto px-4">
                 <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Sobre a Once Upon a Book</h2>
@@ -125,7 +125,7 @@
                 </div>
             </div>        </section>
         
-        <!-- Seção de Cadastro -->
+        <!-- Cadastro -->
         <section id="register" class="py-16 md:py-24 bg-white w-full">
             <div class="max-w-6xl mx-auto px-4">
                 <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Cadastre-se</h2>
@@ -157,14 +157,27 @@
                         </div>
                     </div>
                     <form class="bg-[#f7f6f4] p-6 md:p-8 rounded-2xl shadow-2xl">
-                        <h3 class="text-[#8a7462] mb-8 text-center text-xl font-semibold">Criar Conta</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <h3 class="text-[#8a7462] mb-8 text-center text-xl font-semibold">Criar Conta</h3>                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <input type="text" placeholder="Nome completo" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
                             <input type="email" placeholder="E-mail" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <input type="password" placeholder="Senha" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
                             <input type="password" placeholder="Confirmar senha" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                        </div>
+                        
+                        <!-- Endereço -->
+                        <h4 class="text-[#8a7462] mb-3 text-lg font-semibold">Endereço</h4>
+                        <div class="grid grid-cols-1 gap-4 mb-4">
+                            <input type="text" placeholder="Nome da rua" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="Número" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                            <input type="text" placeholder="Bairro" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="Cidade" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
+                            <input type="text" placeholder="Estado" required class="p-4 border-2 border-[#e4d6d8] rounded-lg text-base bg-white transition-all duration-300 focus:outline-none focus:border-[#cc9fa4]">
                         </div>
                         <div class="space-y-4 mb-8">
                             <label class="flex items-start gap-3 cursor-pointer text-[#4f3f33]">
@@ -185,7 +198,7 @@
             </div>
         </section>
         
-        <!-- Seção de Contato -->
+        <!-- Contato -->
         <section id="contact" class="py-16 md:py-24 bg-[#ede3e5] w-full">
             <div class="max-w-6xl mx-auto px-4">
                 <h2 class="text-center text-3xl md:text-4xl mb-12 text-[#8a7462] font-bold font-playfair">Entre em Contato</h2>
@@ -198,7 +211,7 @@
                             Enviar Mensagem
                         </button>
                     </form>
-                    <div id="mensagemAgradecimento" class="hidden flex flex-col items-center justify-center bg-[#f7f6f4] p-8 rounded-2xl shadow-2xl mx-auto w-full max-w-md mt-4">
+                    <div id="mensagemAgradecimento" class="hidden flex-col items-center justify-center bg-[#f7f6f4] p-8 rounded-2xl shadow-2xl mx-auto w-full max-w-md mt-4">
                         <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
                         <h3 class="text-[#8a7462] text-xl font-bold mb-2">Obrigado!</h3>
                         <p class="text-[#655548] text-center">Sua mensagem foi enviada com sucesso!</p>
@@ -208,7 +221,7 @@
         </section>
     </main>
     
-    <!-- Footer -->
+    
     <footer class="bg-[#7d6c5e] text-[#f7f6f4] py-12 w-full">
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -252,10 +265,9 @@
             </div>
         </div>
     </footer>
-
-    <script src="./src/books.js"></script>
+    <script type="module" src="./src/books.js"></script>
     <script>
-        //carrinho
+        
         function toggleCart() {
             const cartSidebar = document.getElementById('cartSidebar');
             cartSidebar.classList.toggle('translate-x-full');
@@ -274,11 +286,7 @@
             });
         });
 
-        document.getElementById('formContato').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('formContato').classList.add('hidden');
-            document.getElementById('mensagemAgradecimento').classList.remove('hidden');
-        });
+  
     </script>
 </body>
 </html>
