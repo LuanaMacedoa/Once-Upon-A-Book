@@ -1,6 +1,8 @@
 import { CartManager } from './cartManager.js';
 import { FormManager } from './formManager.js';
 
+
+
 const booksData = [
     {
         id: 1,
@@ -8,7 +10,7 @@ const booksData = [
         author: " Ali Hazelwood",
         price: 39.90,
         category: "romance",
-        image: "./src/assets/img/amor-teoricamente.jpeg",
+        image: "https://m.media-amazon.com/images/I/51WdTo-eeEL._SY445_SX342_.jpg",
         rating: 4.5,
         description: "Romance universitário."
     },
@@ -18,7 +20,7 @@ const booksData = [
         author: "Jane Austen",
         price: 45.50,
         category: "romance",
-        image: "./src/assets/img/orgulho-e-preconceito.jpeg",
+        image: "https://m.media-amazon.com/images/I/719esIW3D7L._SL1297_.jpg",
         rating: 5.0,
         description: "O clássico romance que conquistou gerações."
     },
@@ -28,7 +30,7 @@ const booksData = [
         author: "Rachel Gillig",
         price: 52.90,
         category: "fantasia",
-        image: "./src/assets/img/uma-janela-sombria.jpeg",
+        image: "https://m.media-amazon.com/images/I/41h4qcv+umL._SY445_SX342_.jpg",
         rating: 4.0,
         description: "Um fantasia envolvente cheio de mistérios."
     },
@@ -38,7 +40,7 @@ const booksData = [
         author: "Jennifer L. Armentrout",
         price: 35.90,
         category: "fantasia",
-        image: "./src/assets/img/de-sangue-e-cinzas.jpeg",
+        image: "https://m.media-amazon.com/images/I/51HS0iOFxvL._SY445_SX342_.jpg",
         rating: 5.0,
         description: "O início de uma saga famosa e espetacular."
     },
@@ -48,7 +50,7 @@ const booksData = [
         author: "Rebecca Yarros",
         price: 89.90,
         category: "fantasia",
-        image: "./src/assets/img/quarta-asa.jpeg",
+        image: "https://m.media-amazon.com/images/I/51FZttDo1tL._SY445_SX342_.jpg",
         rating: 4.8,
         description: "A épica jornada pelo Instituto Basgiath."
     },
@@ -58,7 +60,7 @@ const booksData = [
         author: "Emily Henry",
         price: 42.90,
         category: "ficção",
-        image: "./src/assets/img/uma-vida-e-tanto.jpeg",
+        image: "https://m.media-amazon.com/images/I/71E6XqNfy6L._SL1500_.jpg",
         rating: 4.3,
         description: "O mais novo da rainha do romance."
     },
@@ -68,7 +70,7 @@ const booksData = [
         author: "Colleen Hoover",
         price: 38.90,
         category: "misterio",
-        image: "./src/assets/img/verity.jpeg",
+        image: "https://m.media-amazon.com/images/I/51ABRx3d7GL._SY445_SX342_.jpg",
         rating: 4.2,
         description: "Um thriller psicológico perturbador."
     },
@@ -78,7 +80,7 @@ const booksData = [
         author: "Stephanie Meyer",
         price: 55.90,
         category: "fantasia",
-        image: "./src/assets/img/era-uma-vez-um-coracao-partido.jpeg",
+        image: "https://m.media-amazon.com/images/I/91L6DCEfDuL._SY385_.jpg",
         rating: 4.6,
         description: "Uma história de amor emocionante."
     },
@@ -88,7 +90,7 @@ const booksData = [
         author: "Taylor Jenkins Reid",
         price: 48.90,
         category: "ficção",
-        image: "./src/assets/img/os-sete-maridos-de-evelyn-hugo.jpeg",
+        image: "https://m.media-amazon.com/images/I/41xVhz5sL1L._SY445_SX342_.jpg",
         rating: 4.9,
         description: "A fascinante vida de uma lenda de Hollywood."
     }
