@@ -68,7 +68,7 @@ export default function Page() {
       <main>
         {/* Hero */}
         <section className="w-full bg-gradient-to-b from-[#f7f6f4] to-[#c7bbad] min-h-[70vh] flex flex-col items-center justify-center text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-[#8a7462] font-playfair mb-8">Bem-vindo à Once Upon a Book</h1>
+          <h1 className="text-5xl md:text-7xl font-bold text-[#8a7462] font-playfair mb-8">Bem-vindo a Once Upon a Book</h1>
           <p className="text-xl md:text-2xl text-[#655548] mb-10">Descubra mundos incríveis através da leitura</p>
           <a href="#books" className="inline-block px-10 py-5 rounded-full bg-[#cc9fa4] text-white font-bold text-lg shadow-lg hover:bg-[#a67a80] transition-all duration-300">Ver Catálogo</a>
         </section>
