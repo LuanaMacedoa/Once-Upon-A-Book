@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://https://qlmcwtjlfnwofkqfdeoo.supabase.co';
+const supabaseUrl = 'https://qlmcwtjlfnwofkqfdeoo.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsbWN3dGpsZm53b2ZrcWZkZW9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3MTI0MTksImV4cCI6MjA3MTI4ODQxOX0.U2IbZWx_EJwgXRFHUPKElr3B99NALeT4Y_QspnCTbDA'; 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
